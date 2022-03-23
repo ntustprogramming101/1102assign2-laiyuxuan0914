@@ -1,7 +1,7 @@
 PImage bg;
 PImage soil;
 PImage life;
-PImage groundhog;
+PImage groundhogdle;
 PImage soldier;
 PImage robot;
 PImage cabbage;
@@ -25,7 +25,7 @@ int gameState;
 
 
 void setup() {
-  frameRate=60;
+  
   gameState=GAME_START;
   //groundpose
   downPressed=false;
@@ -37,8 +37,9 @@ void setup() {
 
 
   size(640, 480);
+  frameRate(60);
   bg=loadImage("img/bg.jpg");
-  groundhog=loadImage("img/groundhog.png");
+  groundhogdle=loadImage("img/groundhog.png");
   groundhogDown=loadImage("img/groundhogDown.png");
   groundhogLeft=loadImage("img/groundhogLeft.png");
   groundhogRight=loadImage("img/groundhogRight.png");
@@ -161,30 +162,32 @@ void draw() {
     //cabbage
     image(cabbage, cabbageX*80, cabbageY*80);
     
-    if(downPressed==leftPressed==rightPressed==false){
-   image(groundhog,groundhogX,groundhogY);
+    if(downPressed==leftPressed==rightPressed==false)
+    
+    {
+   image(groundhogdle,groundhogX,groundhogY);
    }
     
     
     //groundhog pose
        if(downPressed){
-      image(groundhog,-80,-80);
+      image(groundhogdle,-80,-80);
   image(groundhogDown,groundhogX,groundhogY);
-  image(groundhog,-80,-80);
+  image(groundhogdle,-80,-80);
   
  
    }
    
    if(leftPressed){
-      image(groundhog,-80,-80);
+      image(groundhogdle,-80,-80);
   image(groundhogLeft,groundhogX,groundhogY);
-  image(groundhog,-80,-80);
+  image(groundhogdle,-80,-80);
    }
    
    if(rightPressed){
-      image(groundhog,-80,-80);
+      image(groundhogdle,-80,-80);
   image(groundhogRight,groundhogX,groundhogY);
-  image(groundhog,-80,-80);
+  image(groundhogdle,-80,-80);
    }
    
    
@@ -252,6 +255,7 @@ void draw() {
 
       gameState=GAME_LOSE;
     }
+     
  
    
   }
@@ -262,6 +266,7 @@ void keyPressed() {
     case DOWN:
       downPressed=true;
       groundhogY+=SPEED;
+      
      
       break;
     case LEFT:
