@@ -39,7 +39,7 @@ void setup() {
   size(640, 480);
   frameRate(60);
   bg=loadImage("img/bg.jpg");
-  groundhogdle=loadImage("img/groundhog.png");
+  groundhogdle=loadImage("img/groundhogdle.png");
   groundhogDown=loadImage("img/groundhogDown.png");
   groundhogLeft=loadImage("img/groundhogLeft.png");
   groundhogRight=loadImage("img/groundhogRight.png");
