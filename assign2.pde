@@ -9,9 +9,7 @@ PImage groundhogDown,groundhogLeft,groundhogRight;
 PImage title, gameover, startNormal, startHo, restartHo, restartNormal;
 int soliderX, soliderY;
 boolean noLife;
-boolean downPressed, rightPressed, leftPressed;
 float lifeRightY, lifeLeftY, lifeY;
-float groundhogX, groundhogY;
 int cabbageX, cabbageY;
 final int GROUNDHOG_W=80, GROUNDHOG_H=80;
 final int SOIL_W=80, SOIL_H=80;
@@ -19,23 +17,25 @@ final int GAME_START=0, GAME_LOSE=1, GAME_RUN=2;
 final int RIGHT_LIFE_ADD=10, RIGHT_LIFE_CUT=80;
 final int BUTTON_X=248, BUTTON_Y=360, 
   BUTTON_W=144, BUTTON_H=60;
- final int SPEED=80;  
 int titleX, titleY;
 int gameState;
+//move
+int animationFrame;
+
+ 
+final int GROUNDHOG_IDLE = 0;
+final int GROUNDHOG_LEFT = 1;
+final int GROUNDHOG_RIGHT = 2;
+final int GROUNDHOG_DOWN = 3;
+ int groundhogState = GROUNDHOG_IDLE;
+
+float groundhogX = width*4/8;
+float groundhogY = height*1/6;
 
 
 void setup() {
   
   gameState=GAME_START;
-  //groundpose
-  downPressed=false;
-  rightPressed=false;
-  leftPressed=false;
-  
- 
-
-
-
   size(640, 480);
   frameRate(60);
   bg=loadImage("img/bg.jpg");
@@ -83,11 +83,6 @@ void setup() {
 
 void draw() {
 
-
-
-
-
-
   switch(gameState) {
 
   case GAME_START:
@@ -123,18 +118,43 @@ void draw() {
     break;
 
   case GAME_RUN:
+  
+  //move
+  if(animationFrame<15){
+    animationFrame++;
+    switch(groundhogState){
+      case GROUNDHOG_LEFT:
+        groundhogX -= 80/15.0;
+        break;
+      case GROUNDHOG_RIGHT:
+        groundhogX += 80/15.0;
+        break;
+      case GROUNDHOG_DOWN:
+        groundhogY += 80/15.0;
+        break;
+    }
+   
+    if(animationFrame == 15){
+      groundhogX = round(groundhogX);
+      groundhogY = round(groundhogY);
+    }
+  }else{
+    groundhogState = GROUNDHOG_IDLE;
+  }
+  
+  
  
    
   
   //avoid out of area
     if (groundhogX>560) { 
-      groundhogX-=SPEED;
+      groundhogX-= 80/15.0;
     }
     if (groundhogX<0) {
-      groundhogX+=SPEED;
+      groundhogX+= 80/15.0;
     }
     if (groundhogY>400) {
-      groundhogY-=SPEED;
+      groundhogY-= 80/15.0;
     }
 
     //background 
@@ -162,36 +182,9 @@ void draw() {
     //cabbage
     image(cabbage, cabbageX*80, cabbageY*80);
     
-    if(downPressed==leftPressed==rightPressed==false)
-    
-    {
-   image(groundhogdle,groundhogX,groundhogY);
-   }
     
     
-    //groundhog pose
-       if(downPressed){
-      image(groundhogdle,-80,-80);
-  image(groundhogDown,groundhogX,groundhogY);
-  image(groundhogdle,-80,-80);
-  
- 
-   }
    
-   if(leftPressed){
-      image(groundhogdle,-80,-80);
-  image(groundhogLeft,groundhogX,groundhogY);
-  image(groundhogdle,-80,-80);
-   }
-   
-   if(rightPressed){
-      image(groundhogdle,-80,-80);
-  image(groundhogRight,groundhogX,groundhogY);
-  image(groundhogdle,-80,-80);
-   }
-   
-   
-
     //soldier
     soliderX+=3;
     soliderX%=SOIL_W*9;
@@ -214,6 +207,22 @@ void draw() {
       }
     }
 
+//groundhog display
+  switch(groundhogState){
+    case GROUNDHOG_IDLE:
+    image(groundhogdle,groundhogX,groundhogY);
+    break;
+    case GROUNDHOG_LEFT:
+    println("jj");
+     image(groundhogLeft,groundhogX,groundhogY);
+     break;
+    case GROUNDHOG_RIGHT:
+     image(groundhogRight,groundhogX,groundhogY);
+     break;
+    case GROUNDHOG_DOWN:
+    image(groundhogDown,groundhogX,groundhogY);
+    break;
+    }
 
 
 
@@ -260,41 +269,19 @@ void draw() {
    
   }
 }
-void keyPressed() {
-  if (key==CODED) {
-    switch(keyCode) {
-    case DOWN:
-      downPressed=true;
-      groundhogY+=SPEED;
-      
-     
-      break;
-    case LEFT:
-      leftPressed=true;
-      groundhogX-=SPEED;
-      break;
-    case RIGHT:
-      rightPressed=true;
-      groundhogX+=SPEED;
-      break;
-    }
-  }
-}
-void keyReleased() {
-  if (key==CODED) {
-    switch(keyCode) {
-    case DOWN:
-      downPressed=false;
-
-      break;
-    case LEFT:
-      leftPressed=false;
-
-      break;
-    case RIGHT:
-      rightPressed=false;
-
-      break;
+void keyPressed(){
+  if(groundhogState == GROUNDHOG_IDLE){
+    animationFrame = 0;
+    switch(keyCode){
+      case LEFT:
+        groundhogState = GROUNDHOG_LEFT;
+        break;
+      case RIGHT:
+        groundhogState = GROUNDHOG_RIGHT;
+        break;
+        case DOWN:
+        groundhogState = GROUNDHOG_DOWN;
+        break;
     }
   }
 }
