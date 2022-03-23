@@ -6,7 +6,7 @@ PImage soldier;
 PImage robot;
 PImage cabbage;
 PImage groundhogDown,groundhogLeft,groundhogRight;
-PImage title, gameover, startNormal, startHo, restartHo, restartNormal;
+PImage title, gameover, startNormal, startHovered, restartHovered, restartNormal;
 int soliderX, soliderY;
 boolean noLife;
 float lifeRightY, lifeLeftY, lifeY;
@@ -49,9 +49,9 @@ void setup() {
   cabbage=loadImage("img/cabbage.png"); 
   title=loadImage("img/title.jpg");
   startNormal=loadImage("img/startNormal.png");
-  startHo=loadImage("img/startHo.png");
+  startHovered=loadImage("img/startHovered.png");
   gameover=loadImage("img/gameover.jpg");
-  restartHo=loadImage("img/restartHo.png");
+  restartHovered=loadImage("img/restartHovered.png");
   restartNormal=loadImage("img/restartNormal.png");
 
 
@@ -96,7 +96,7 @@ void draw() {
         //click
         gameState=GAME_RUN;
       } else {
-        image(startHo, BUTTON_X, BUTTON_Y);
+        image(startHovered, BUTTON_X, BUTTON_Y);
       }
     }
     break;
@@ -112,7 +112,7 @@ void draw() {
         //click
         gameState=GAME_RUN;
       } else {
-        image(restartHo, BUTTON_X, BUTTON_Y);
+        image(restartHovered, BUTTON_X, BUTTON_Y);
       }
     }
     break;
