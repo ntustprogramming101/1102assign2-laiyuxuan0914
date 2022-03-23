@@ -122,7 +122,7 @@ void draw() {
     break;
 
   case GAME_RUN:
-  
+ 
    
   
   //avoid out of area
@@ -161,6 +161,11 @@ void draw() {
     //cabbage
     image(cabbage, cabbageX*80, cabbageY*80);
     
+    if(downPressed==leftPressed==rightPressed==false){
+   image(groundhog,groundhogX,groundhogY);
+   }
+    
+    
     //groundhog pose
        if(downPressed){
       image(groundhog,-80,-80);
@@ -182,9 +187,7 @@ void draw() {
   image(groundhog,-80,-80);
    }
    
-   if(downPressed==leftPressed==rightPressed==false){
-   image(groundhog,groundhogX,groundhogY);
-   }
+   
 
     //soldier
     soliderX+=3;
