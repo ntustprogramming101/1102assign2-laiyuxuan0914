@@ -1,7 +1,7 @@
 PImage bg;
 PImage soil;
 PImage life;
-PImage groundhogdle;
+PImage groundhogIdle;
 PImage soldier;
 PImage robot;
 PImage cabbage;
@@ -39,7 +39,7 @@ void setup() {
   size(640, 480);
   frameRate(60);
   bg=loadImage("img/bg.jpg");
-  groundhogdle=loadImage("img/groundhogdle.png");
+  groundhogIdle=loadImage("img/groundhogIdle.png");
   groundhogDown=loadImage("img/groundhogDown.png");
   groundhogLeft=loadImage("img/groundhogLeft.png");
   groundhogRight=loadImage("img/groundhogRight.png");
@@ -210,7 +210,7 @@ void draw() {
 //groundhog display
   switch(groundhogState){
     case GROUNDHOG_IDLE:
-    image(groundhogdle,groundhogX,groundhogY);
+    image(groundhogIdle,groundhogX,groundhogY);
     break;
     case GROUNDHOG_LEFT:
     println("jj");
